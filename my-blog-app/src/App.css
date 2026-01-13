@@ -1,0 +1,22 @@
+:root {
+  --main-bg: #fff2c6;
+  --primary: #fff8de;
+  --secondary: #aac4f5;
+  --higlight: #8ca9ff;
+
+  --muted-foreground: 20 10% 45%;
+
+  --font-sans: "Inter",  sans-serif;
+  --font-serif: "Playfair Display",  Georgia,  serif;
+
+  --text-2xl: 1.5rem;
+  --text-4xl: 2.25rem;
+  --text-xl: 1.25rem;
+  --text-lg: 1.125rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
