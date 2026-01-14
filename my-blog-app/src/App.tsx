@@ -1,48 +1,97 @@
-import { useEffect } from 'react';
-import { supabase } from './supabaseClient';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from './store/authSlice';
-import { type RootState } from './store';
-import { Auth } from './Auth';
-import './App.css'
+
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { type RootState } from "./store";
+import { PublicBlogList } from "./pages/PublicBlogList";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
+import { AddPost } from './pages/AddPost';
+import { supabase } from "./supabaseClient";
+import { setUser } from "./store/authSlice";
+import "./App.css";
+import "./css/PublicPage.css";
+
+import editIcon from "./assets/ic-edit.svg";
+import logoutIcon from "./assets/ic-logout.svg";
 
 function App() {
-  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-
-  useEffect(() => {
-    // 1. Check for an existing session when the app loads
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      dispatch(setUser(session?.user ?? null));
-    });
-
-    // 2. Listen for auth changes (login/logout)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      dispatch(setUser(session?.user ?? null));
-    });
-
-    return () => subscription.unsubscribe();
-  }, [dispatch]);
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    dispatch(setUser(null));
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const handlePostCreated = () => {
+    // 2. Instead of reloading, we just change this number
+    setRefreshTrigger(prev => prev + 1);
+    setIsModalOpen(false);
   };
 
   return (
-    <div className='app-div'>
-      {!user ? (
-        <Auth />
-      ) : (
-        <div>
-          <h1>Welcome to the Blog</h1>
-          <p>Logged in as: {user.email}</p>
-          <button onClick={handleLogout}>Logout</button>
-          <hr />
-          {/* We will put the Blog CRUD components here next */}
-          <p>Next: Create, Update, Delete Blogs</p>
-        </div>
-      )}
-    </div>
+    <Router>
+      <AddPost 
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      onPostCreated={handlePostCreated} // Simple way to refresh the list
+      />
+
+      <header>
+        <Link to="/" className="logo">
+          Blogs
+        </Link>
+        <nav>
+          {!user ? (
+            <>
+              <Link to="/login" className="btn sign-in">
+                <button >Sign in</button>
+              </Link>
+              <Link to="/register" className="btn get-started">
+                <button >Get started</button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <span className="user-name">{user.email}</span>
+              <button className="btn new-post" onClick={() => setIsModalOpen(true)}>
+                <img src={editIcon} alt="SignIn" />
+                New Post
+              </button>
+              <button className="btn logout" onClick={handleLogout}>
+                <img src={logoutIcon} alt="Logout" />
+                Logout
+              </button>
+            </>
+          )}
+        </nav>
+      </header>
+
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <main>
+                <h1 className="title">Stories & Ideas</h1>
+                <p>
+                  A collection of thoughts, insights, and creative explorations
+                  from our community of writers.
+                </p>
+                {/* 3. Pass the trigger to the list, it's pass through PublicBlogList.tsx */}
+                <PublicBlogList refreshTrigger={refreshTrigger} />
+              </main>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 
