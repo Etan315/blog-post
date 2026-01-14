@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main ]
 
-# Add this section:
 permissions:
   contents: write
 
@@ -34,5 +33,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: my-blog-app/dist # Or 'build' if using CRA
+          folder: my-blog-app/dist
           branch: gh-pages
+          clean: true 
