@@ -2,7 +2,8 @@
   --main-bg: #f1efec;
   --primary: #d4c9be;
   --highlight1: #030303;
-  --highlight1-8: hsla(0, 0%, 1%, 0.851);
+  --highlight1-6: hsla(0, 0%, 1%, 0.6);
+  --highlight1-8: hsla(0, 0%, 1%, 0.8);
   --highlight2: #703b3b;
   --highlight3: #643030;
   --highlight2-8: hsla(0, 31%, 34%, 0.8);
@@ -24,6 +25,8 @@
   --container-md: 28rem;
   --radius: 0.625rem;
   --shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  --shadow2: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 * {
@@ -66,7 +69,7 @@ button:hover {
 }
 
 main {
-  padding: 0 clamp(50px, 15vw, 300px);
+  padding: 0 clamp(50px, 12vw, 300px);
 }
 
 input {
@@ -87,3 +90,5 @@ label {
   font-size: var(--text-sm);
   margin-bottom: 5px;
 }
+
+.dot { margin: 0 2px 0 6px}

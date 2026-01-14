@@ -55,6 +55,9 @@ h1.title {
   font-family: var(--font-serif);
 }
 
+h1.title.main {
+  font-size: var(--text-5xl);
+}
 
 .title h2 {
   font-family: var(--font-serif);
