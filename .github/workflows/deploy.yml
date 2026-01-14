@@ -1,8 +1,12 @@
-name: Deploy My Blog App
+name: Deploy Blogs App
 
 on:
   push:
-    branches: [ main ] # Runs when you push to main
+    branches: [ main ]
+
+# Add this section:
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
