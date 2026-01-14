@@ -1,0 +1,74 @@
+.modal-overlay {
+  position: fixed;
+  background-color: var(--highlight1-8);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 clamp(50px, 25vw, 400px);
+}
+
+.modal-content {
+  background-color: var(--main-bg);
+  padding: 24px;
+  height: 80%;
+  width: 100%;
+  border-radius: 8px;
+}
+
+form.add-post {
+  max-width: unset;
+  box-shadow: unset;
+  margin-bottom: unset;
+  padding: unset;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 47px);
+}
+
+form.add-post input,
+form.add-post textarea {
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--highlight2-8);
+  box-shadow: var(--shadow);
+  padding: 5px 8px;
+}
+
+.modal-content h1 {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  margin-bottom: 15px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.text-content {
+  height: 100%;
+  width: 100%;
+  resize: none;
+}
+.btn-cancel, .btn-publish {
+    padding: 8px 10px;
+}
+
+.btn-cancel {
+    background-color: var(--main-bg);
+    color: var(--highlight2);
+    border: 1px solid var(--highlight2-8)
+}
+
+.btn-cancel:hover {
+    background-color: var(--primary);
+    color: var(--highlight2);
+}
+
+.btn-publish:hover {
+    background-color: var(--highlight3);
+}
