@@ -35,4 +35,4 @@ jobs:
         with:
           folder: my-blog-app/dist
           branch: gh-pages
-          clean: true 
+          clean: true
